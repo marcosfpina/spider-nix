@@ -16,11 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=7.4.0",
-    "pytest-asyncio>=0.21.0",
-    "ruff>=0.1.0",
-]
+dev = ["pytest>=7.4.0", "pytest-asyncio>=0.21.0", "ruff>=0.1.0"]
 
 [project.scripts]
 spider-nix = "spider_nix.cli:app"
@@ -35,3 +31,4 @@ target-version = "py311"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+pythonpath = ["src"]
