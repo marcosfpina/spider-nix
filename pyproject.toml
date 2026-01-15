@@ -19,7 +19,17 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=7.4.0", "pytest-asyncio>=0.21.0", "ruff>=0.1.0"]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+    "bandit[toml]>=1.7.0",
+    "safety>=3.0.0",
+    "pip-audit>=2.6.0",
+    "pre-commit>=3.6.0",
+]
 
 [project.scripts]
 spider-nix = "spider_nix.cli:app"
@@ -35,3 +45,49 @@ target-version = "py311"
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=spider_nix",
+    "--cov-branch",
+    "--cov-report=term-missing:skip-covered",
+]
+
+[tool.coverage.run]
+source = ["spider_nix"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+files = ["src/spider_nix"]
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101"]
+
+[tool.bandit.assert_used]
+exclude = ["*/test_*.py"]
