@@ -64,6 +64,9 @@ addopts = [
     "--cov-branch",
     "--cov-report=term-missing:skip-covered",
 ]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
 
 [tool.coverage.run]
 source = ["spider_nix"]
