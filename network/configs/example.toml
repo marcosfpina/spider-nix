@@ -1,0 +1,19 @@
+# Spider Network Proxy Configuration (Example)
+# Copy to production.toml and customize
+
+[proxy]
+http_listen = "127.0.0.1:8080"
+socks5_listen = "127.0.0.1:1080"
+
+[tls]
+fingerprint_rotation = true
+profile_cache_ttl_hours = 24
+browser_pool = ["chrome", "firefox", "safari", "edge"]
+
+[http2]
+randomize_settings = true
+priority_frames_enabled = true
+
+[metrics]
+enabled = true
+listen = "127.0.0.1:9090"
